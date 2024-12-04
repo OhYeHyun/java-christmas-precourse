@@ -26,6 +26,14 @@ public class OrderRepository {
                 .isEmpty();
     }
 
+    public int countByType(String type) {
+        return order.stream()
+                .filter(food -> Objects.equals(food.getType(), type))
+                .toList()
+                .size();
+    }
+
+
     public List<Food> getOrder() {
         return Collections.unmodifiableList(order);
     }
