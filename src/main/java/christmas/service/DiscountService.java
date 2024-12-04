@@ -11,6 +11,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class DiscountService {
     private final DayDiscount dayDiscount;
@@ -19,19 +20,21 @@ public class DiscountService {
     private final SpecialDiscount specialDiscount;
     private final GiveawayEvent giveawayEvent;
 
+    private final OrderRepository order;
+
     private final Map<String, Integer> discountHistory = new HashMap<>();
     private final List<String> giveawayHistory = new ArrayList<>();
 
-    public DiscountService(DayDiscount dayDiscount, WeekdaysDiscount weekdaysDiscount, WeekendDiscount weekendDiscount, SpecialDiscount specialDiscount, GiveawayEvent giveawayEvent) {
+    public DiscountService(DayDiscount dayDiscount, WeekdaysDiscount weekdaysDiscount, WeekendDiscount weekendDiscount, SpecialDiscount specialDiscount, GiveawayEvent giveawayEvent, OrderRepository order) {
         this.dayDiscount = dayDiscount;
         this.weekdaysDiscount = weekdaysDiscount;
         this.weekendDiscount = weekendDiscount;
         this.specialDiscount = specialDiscount;
         this.giveawayEvent = giveawayEvent;
+        this.order = order;
     }
 
-    public void discount(int day, OrderRepository order) {
-        validateDay(day);
+    public void discount(int day) {
         discountHistory.put("크리스마스 디데이 할인", dayDiscount.calculate(day));
         discountHistory.put("평일 할인", weekdaysDiscount.calculate(day, order));
         discountHistory.put("주말 할인", weekendDiscount.calculate(day, order));
@@ -46,14 +49,17 @@ public class DiscountService {
         }
     }
 
-    private void validateDay(int day) {
-        if (day < 1 || day > 31) {
-            throw new IllegalArgumentException("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
-        }
+    public int totalDiscountPrice() {
+        return discountHistory.values().stream()
+                .mapToInt(price -> price)
+                .sum();
     }
 
-    public int totalPrice() {
-        return discountHistory.values().stream().mapToInt(price -> price).sum();
+    public int totalPaymentPrice() {
+        return discountHistory.entrySet().stream()
+                .filter(entry -> !Objects.equals(entry.getKey(), "증정 이벤트"))
+                .mapToInt(entry -> entry.getValue())
+                .sum();
     }
 
     public Map<String, Integer> getDiscountHistory() {
