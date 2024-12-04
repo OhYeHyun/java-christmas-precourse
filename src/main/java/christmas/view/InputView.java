@@ -13,6 +13,7 @@ public class InputView {
     public static String getDay() {
         while (true) {
             try {
+                OutputView.instructionGetDay();
                 String day = getInput();
                 NumberFormatValidator.validate(day);
                 return day;
@@ -25,6 +26,7 @@ public class InputView {
     public static String getOrders() {
         while (true) {
             try {
+                OutputView.instructionGetOrders();
                 String orders = getInput();
                 OrderFormatValidator.validate(orders);
                 return orders;
