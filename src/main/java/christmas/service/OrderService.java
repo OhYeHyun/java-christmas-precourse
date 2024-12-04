@@ -3,6 +3,7 @@ package christmas.service;
 import christmas.domain.Food;
 import christmas.domain.FoodRepository;
 import christmas.domain.OrderRepository;
+import java.util.Map;
 
 public class OrderService {
     private final FoodRepository menu;
@@ -19,6 +20,10 @@ public class OrderService {
 
         Food food = menu.findFood(name);
         order.orderFood(food, quantity);
+    }
+
+    public Map<Food, Integer> getOrder() {
+        return order.getOrder();
     }
 
     public void validateOrder() {
