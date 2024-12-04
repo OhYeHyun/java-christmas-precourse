@@ -40,7 +40,6 @@
 
 - PaymentService
 - [ ] : 할인 후 예상 결제 금액 계산
-- [ ] : 
 
 - Food
 - [ ] : 이름, 가격, 코스 타입을 갖는 객체
@@ -49,7 +48,7 @@
 - [ ] : List<Food>
 
 - OrderRepository
-- [ ] : List<Food>
+- [ ] : Map<Food, Integer>
 
 - NumberFormatValidator
 - [ ] : 숫자인지 확인

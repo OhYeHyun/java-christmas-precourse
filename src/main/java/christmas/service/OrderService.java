@@ -18,7 +18,7 @@ public class OrderService {
         validateQuantity(quantity);
 
         Food food = menu.findFood(name);
-        order.orderFood(food);
+        order.orderFood(food, quantity);
     }
 
     public void validateOrder() {
