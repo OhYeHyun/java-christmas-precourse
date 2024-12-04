@@ -7,7 +7,7 @@ import java.util.Objects;
 
 public class FoodRepository {
     private final FoodRepository instance = new FoodRepository();
-    private final List<Food> foods = new ArrayList<>();
+    private final List<Food> menu = new ArrayList<>();
 
     private FoodRepository() {}
 
@@ -16,17 +16,17 @@ public class FoodRepository {
     }
 
     public void addFood(Food food) {
-        foods.add(food);
+        menu.add(food);
     }
 
     public boolean isExist(String name) {
-        return !foods.stream()
+        return !menu.stream()
                 .filter(food -> Objects.equals(food.getName(), name))
                 .toList()
                 .isEmpty();
     }
 
-    public List<Food> getFoods() {
-        return Collections.unmodifiableList(foods);
+    public List<Food> getMenu() {
+        return Collections.unmodifiableList(menu);
     }
 }
