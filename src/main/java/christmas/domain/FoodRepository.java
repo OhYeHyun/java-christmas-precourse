@@ -26,6 +26,10 @@ public class FoodRepository {
                 .isEmpty();
     }
 
+    public Food findFood(String name) {
+        return menu.stream().filter(food -> Objects.equals(food.getName(), name)).findAny().get();
+    }
+
     public List<Food> getMenu() {
         return Collections.unmodifiableList(menu);
     }

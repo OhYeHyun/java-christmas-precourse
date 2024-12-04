@@ -37,6 +37,10 @@ public class OrderRepository {
         return order.stream().mapToInt(food -> food.getPrice()).sum();
     }
 
+    public void clear() {
+        order.clear();
+    }
+
     public List<Food> getOrder() {
         return Collections.unmodifiableList(order);
     }
