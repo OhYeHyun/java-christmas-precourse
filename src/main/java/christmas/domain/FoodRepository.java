@@ -6,12 +6,12 @@ import java.util.List;
 import java.util.Objects;
 
 public class FoodRepository {
-    private final FoodRepository instance = new FoodRepository();
-    private final List<Food> menu = new ArrayList<>();
+    private static final FoodRepository instance = new FoodRepository();
+    private static final List<Food> menu = new ArrayList<>();
 
     private FoodRepository() {}
 
-    public FoodRepository getInstance() {
+    public static FoodRepository getInstance() {
         return instance;
     }
 

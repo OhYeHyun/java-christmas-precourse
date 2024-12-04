@@ -6,12 +6,12 @@ import java.util.Map;
 import java.util.Objects;
 
 public class OrderRepository {
-    private final OrderRepository instance = new OrderRepository();
-    private final Map<Food, Integer> order = new HashMap<>();
+    private static final OrderRepository instance = new OrderRepository();
+    private static final Map<Food, Integer> order = new HashMap<>();
 
     private OrderRepository() {}
 
-    public OrderRepository getInstance() {
+    public static OrderRepository getInstance() {
         return instance;
     }
 
